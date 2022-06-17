@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: anne-sophie <anne-sophie@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/17 09:20:00 by anne-sophie       #+#    #+#             */
-/*   Updated: 2022/06/17 16:18:14 by anne-sophie      ###   ########.fr       */
+/*   Created: 2022/06/17 14:02:33 by anne-sophie       #+#    #+#             */
+/*   Updated: 2022/06/17 14:27:55 by anne-sophie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include <signal.h>
+#include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <stdarg.h>
+#include <sys/types.h>
 
-char    g_c = START_CHAR;
-
-static void rec_message(int sig)
+void    handl_signal(int nub)
 {
-    if (sig == 30)
-        g_c++;
-    else
+    write(STDOUT_FILENO, "I WON'T DIE!!\n", 15);
+}
+
+int main (int ac, char **av)
+{
+    signal(SIGINT, handl_signal);
+    signal(SIGTERM, handl_signal);
+    while (1)
     {
-        ft_putchar(g_c);
-        g_c = START_CHAR;
+        printf("Some Text %d\n", getpid());
+        sleep(1);
     }
 }
 
-int main (void)
-{
-    ft_printf("Server PID: %u\n", getpid());
-    signal(SIGUSR1, rec_message);
-    signal(SIGUSR2, rec_message);
-    while (1)
-        pause();
-    return (0);
-}
+
+
 

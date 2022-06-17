@@ -6,43 +6,42 @@
 /*   By: anne-sophie <anne-sophie@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 09:14:33 by anne-sophie       #+#    #+#             */
-/*   Updated: 2022/06/17 09:51:07 by anne-sophie      ###   ########.fr       */
+/*   Updated: 2022/06/17 16:15:41 by anne-sophie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-static void	ft_send_msg(int pid, char *str)
+static void send_message(int pid, char *str)
 {
-	int	i;
-	int	dif;
-
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] != START_CHAR)
-			dif = (int)str[i];
-		while (dif)
-		{
-			kill(pid, SIGUSR1);
-			dif--;
-			usleep(80);
-		}
-		kill(pid, SIGUSR2);
-		i++;
-	}
+    int nb;
+    int i;
+    
+    i = 0;
+    while (str[i])
+    {
+        nb = (int)str[i];
+        while (nb != 0)
+        {
+            kill(pid, SIGUSR1);
+            nb--;
+            usleep(100);
+        }
+        kill(pid, SIGUSR2);
+        i++;
+    }
 }
 
-int	main(int argc, char *argv[])
+int main(int ac, char **av)
 {
-	int		pid;
+    int pid;
 
-	if (argc != 3)
-	{
-		ft_printf("wrong number of arguments\n");
-		return (0);
-	}
-	pid = ft_atoi(argv[1]);
-	ft_send_msg(pid, argv[2]);
-	return (0);
+    if (ac != 3)
+    {
+        ft_printf("Invalid Number of Arguments\n");
+        return (0);
+    }
+    pid = ft_atoi(av[1]);
+    send_message(pid, av[2]);
+    return (0);
 }
