@@ -6,16 +6,11 @@
 /*   By: anne-sophie <anne-sophie@student.42.fr>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 14:02:33 by anne-sophie       #+#    #+#             */
-/*   Updated: 2022/06/17 14:27:55 by anne-sophie      ###   ########.fr       */
+/*   Updated: 2022/08/04 22:41:31 by anne-sophie      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <signal.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <stdarg.h>
-#include <sys/types.h>
+#include "minitalk.h"
 
 void    handl_signal(int nub)
 {
